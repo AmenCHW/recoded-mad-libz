@@ -31,6 +31,25 @@ function parseStory(rawStory) {
   return {}; // This line is currently wrong :)
 }
 
+
+let allFields = document.querySelectorAll(".input-form");
+
+for (let i = 0; i < allFields.length; i++) {
+
+    allFields[i].addEventListener("keyup", function(event) {
+
+        if (event.keyCode === 13) {
+            // console.log('Enter clicked')
+            event.preventDefault();
+            if (this.parentElement.nextElementSibling.querySelector('input')) {
+                this.parentElement.nextElementSibling.querySelector('input').focus();
+            }
+        }
+    });
+
+}
+
+
 /**
  * All your other JavaScript code goes here, inside the function. Don't worry about
  * the `then` and `async` syntax for now.
