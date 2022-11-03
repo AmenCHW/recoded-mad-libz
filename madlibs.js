@@ -27,7 +27,7 @@
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
 
-function parseStory(rawStory) {
+ function parseStory(rawStory) {
 
 
 
@@ -55,10 +55,16 @@ function parseStory(rawStory) {
     }
   })
   
-  console.log(objArray)
+
+
+return objArray
+
+
 
 
   }
+
+
 
   // Your code here.
   // console.log(rawStory)
@@ -105,7 +111,100 @@ function parseStory(rawStory) {
 getRawStory()
   .then(parseStory)
   .then((processedStory) => {
-    console.log(processedStory);
+
+    
+ 
+     const madLibsEdit = document.querySelector('.madLibsEdit');
+     madLibsEdit.setAttribute('class', 'px-10 bg-gray-400/80 rounded-3xl ml-10 mr-10 mt-20 mb-20 py-4')
+     
+     const madLibsPreview = document.querySelector('.madLibsPreview');
+     madLibsPreview.setAttribute('class', 'px-10 bg-gray-400/90 rounded-3xl ml-10 mr-10 py-4')
+
+     document.body.style.backgroundImage="url(imgs/forest.jpg)"; // specify the image path here
+     document.body.setAttribute('class', 'bg-cover')
+
+
+  processedStory.forEach((element,i) => {
+    if (element.word) {
+      madLibsEdit.append(' '+element.word)
+      madLibsPreview.append(' '+ element.word)
+      
+    }else if (element.pos){
+      const editInput = document.createElement("input");
+      const previewInput = document.createElement("input");
+      editInput.type = "text";
+      editInput.className = "editInputText text-center rounded-xl h-4";
+      editInput.placeholder = element.pos
+      previewInput.type = "text";
+      previewInput.className = "previewInputText text-center rounded-xl h-4";
+      previewInput.placeholder = element.pos
+      
+      previewInput.disabled = true;
+      madLibsEdit.append(' ')
+      madLibsPreview.append(' ')
+
+      madLibsEdit.appendChild(editInput)
+
+      madLibsPreview.append(previewInput)
+      
+
+      // const input = document.querySelector('editInputText')
+      // const output = document.querySelector('previewInputText')
+
+      
+      editInput.addEventListener ('keyup', (e)=> {
+        previewInput.value = e.target.value     })
+
+        
+
+      // Make an event listenr, listens to input in the Edit section, when there is input run the function Preview.element.pos.innerText = input.value
+  
+    }
+
+    document.querySelectorAll('input').forEach( el => {
+      console.log(el)
+      el.addEventListener('keydown', e => {
+          if(e.keyCode === 13) {
+              let nextEl = el.nextElementSibling;
+             
+              if(nextEl.nodeName === 'INPUT') {
+                  nextEl.focus();
+              }else {
+                  console.log('done');
+              }
+          }
+      })
+  })
+
+
+    
+    
+  });
+
+
+
+// let allFields = document.querySelectorAll(".input-form");
+
+//    function ModifyEnterKeyPressAsTab() {
+//     if (window.event && window.event.keyCode == 13) {
+//         window.event.keyCode = 9;
+
+//         if (madLibsEdit.nextElementSibling.querySelector('.input-form')) {
+//           console.log('YES');
+//           madLibsEdit.nextElementSibling.querySelector('.input-form').focus()
+//         }
+//         console.log('HERE');
+//     }
+// }
+// for (var i = 0; i < allFields.length; i++) {
+//   allFields[i].addEventListener("click", ModifyEnterKeyPressAsTab, false);
+// }
+ //////////////////////////////////////////////
+
+
+
+    // madLibsEdit.innerText = 'SHeesh'
+
   });
 
 
